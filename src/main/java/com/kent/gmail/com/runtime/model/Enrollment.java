@@ -17,6 +17,19 @@ public class Enrollment extends Base {
     return this.student;
   }
 
+  @ManyToOne(targetEntity = Course.class)
+  public Course course;
+
+  @ManyToOne(targetEntity = Course.class)
+  public Course getCourse() {
+    return this.course;
+  }
+
+  public <T extends Enrollment> T setCourse(Course course) {
+    this.course = course;
+    return (T) this;
+  }
+
   /**
    * @param student student to set
    * @return Enrollment

@@ -16,6 +16,10 @@ public class Course extends Base {
   @ManyToOne(targetEntity = Instructor.class)
   private Instructor instructor;
 
+  @OneToMany(targetEntity = Enrollment.class, mappedBy = "course")
+  @JsonIgnore
+  private List<Enrollment> enrollments;
+
   /**
    * @return courseStudentToCourses
    */
