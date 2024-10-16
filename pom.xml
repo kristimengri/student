@@ -6,7 +6,7 @@
 
     <groupId>com.kent.gmail.com</groupId>
     <artifactId>student-runtime</artifactId>
-    <version>0.0.2</version>
+    <version>0.0.3</version>
 
 <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -160,13 +160,6 @@
                 <scope>test</scope>
                 
             </dependency>
-
-        <dependency>
-            <groupId>org.projectlombok</groupId>
-            <artifactId>lombok</artifactId>
-            <version>1.18.34</version>
-            <scope>provided</scope>
-        </dependency>
         
 
             <dependency>

@@ -65,6 +65,13 @@ public class EnrollmentService {
       update = true;
     }
 
+    if (enrollmentCreate.getCourse() != null
+        && (enrollment.getCourse() == null
+            || !enrollmentCreate.getCourse().getId().equals(enrollment.getCourse().getId()))) {
+      enrollment.setCourse(enrollmentCreate.getCourse());
+      update = true;
+    }
+
     return update;
   }
 

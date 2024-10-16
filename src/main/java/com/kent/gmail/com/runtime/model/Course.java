@@ -9,6 +9,10 @@ import java.util.List;
 @Entity
 public class Course extends Base {
 
+  @OneToMany(targetEntity = Enrollment.class, mappedBy = "course")
+  @JsonIgnore
+  private List<Enrollment> courseEnrollments;
+
   @OneToMany(targetEntity = StudentToCourse.class, mappedBy = "course")
   @JsonIgnore
   private List<StudentToCourse> courseStudentToCourses;
@@ -16,9 +20,23 @@ public class Course extends Base {
   @ManyToOne(targetEntity = Instructor.class)
   private Instructor instructor;
 
+  /**
+   * @return courseEnrollments
+   */
   @OneToMany(targetEntity = Enrollment.class, mappedBy = "course")
   @JsonIgnore
-  private List<Enrollment> enrollments;
+  public List<Enrollment> getCourseEnrollments() {
+    return this.courseEnrollments;
+  }
+
+  /**
+   * @param courseEnrollments courseEnrollments to set
+   * @return Course
+   */
+  public <T extends Course> T setCourseEnrollments(List<Enrollment> courseEnrollments) {
+    this.courseEnrollments = courseEnrollments;
+    return (T) this;
+  }
 
   /**
    * @return courseStudentToCourses

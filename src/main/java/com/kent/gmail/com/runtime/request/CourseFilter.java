@@ -1,6 +1,7 @@
 package com.kent.gmail.com.runtime.request;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.kent.gmail.com.runtime.model.Enrollment;
 import com.kent.gmail.com.runtime.model.Instructor;
 import com.kent.gmail.com.runtime.model.StudentToCourse;
 import com.kent.gmail.com.runtime.validation.IdValid;
@@ -9,6 +10,10 @@ import java.util.Set;
 
 /** Object Used to List Course */
 @IdValid.List({
+  @IdValid(
+      field = "courseEnrollmentsIds",
+      fieldType = Enrollment.class,
+      targetField = "courseEnrollmentses"),
   @IdValid(field = "instructorIds", fieldType = Instructor.class, targetField = "instructors"),
   @IdValid(
       field = "courseStudentToCoursesIds",
@@ -17,6 +22,10 @@ import java.util.Set;
 })
 public class CourseFilter extends BaseFilter {
 
+  private Set<String> courseEnrollmentsIds;
+
+  @JsonIgnore private List<Enrollment> courseEnrollmentses;
+
   private Set<String> courseStudentToCoursesIds;
 
   @JsonIgnore private List<StudentToCourse> courseStudentToCourseses;
@@ -24,6 +33,39 @@ public class CourseFilter extends BaseFilter {
   private Set<String> instructorIds;
 
   @JsonIgnore private List<Instructor> instructors;
+
+  /**
+   * @return courseEnrollmentsIds
+   */
+  public Set<String> getCourseEnrollmentsIds() {
+    return this.courseEnrollmentsIds;
+  }
+
+  /**
+   * @param courseEnrollmentsIds courseEnrollmentsIds to set
+   * @return CourseFilter
+   */
+  public <T extends CourseFilter> T setCourseEnrollmentsIds(Set<String> courseEnrollmentsIds) {
+    this.courseEnrollmentsIds = courseEnrollmentsIds;
+    return (T) this;
+  }
+
+  /**
+   * @return courseEnrollmentses
+   */
+  @JsonIgnore
+  public List<Enrollment> getCourseEnrollmentses() {
+    return this.courseEnrollmentses;
+  }
+
+  /**
+   * @param courseEnrollmentses courseEnrollmentses to set
+   * @return CourseFilter
+   */
+  public <T extends CourseFilter> T setCourseEnrollmentses(List<Enrollment> courseEnrollmentses) {
+    this.courseEnrollmentses = courseEnrollmentses;
+    return (T) this;
+  }
 
   /**
    * @return courseStudentToCoursesIds

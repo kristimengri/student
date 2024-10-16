@@ -1,6 +1,7 @@
 package com.kent.gmail.com.runtime.controller;
 
 import com.kent.gmail.com.runtime.AppInit;
+import com.kent.gmail.com.runtime.model.Course;
 import com.kent.gmail.com.runtime.model.Enrollment;
 import com.kent.gmail.com.runtime.model.Student;
 import com.kent.gmail.com.runtime.request.EnrollmentCreate;
@@ -42,6 +43,8 @@ public class EnrollmentControllerTest {
 
   @Autowired private Student student;
 
+  @Autowired private Course course;
+
   @BeforeAll
   private void init() {
     ResponseEntity<Object> authenticationResponse =
@@ -69,6 +72,8 @@ public class EnrollmentControllerTest {
     EnrollmentCreate request = new EnrollmentCreate();
 
     request.setStudentId(this.student.getId());
+
+    request.setCourseId(this.course.getId());
 
     ResponseEntity<Enrollment> response =
         this.restTemplate.postForEntity("/Enrollment/createEnrollment", request, Enrollment.class);
@@ -103,6 +108,12 @@ public class EnrollmentControllerTest {
 
       Assertions.assertNotNull(testEnrollment.getStudent());
       Assertions.assertEquals(request.getStudentId(), testEnrollment.getStudent().getId());
+    }
+
+    if (request.getCourseId() != null) {
+
+      Assertions.assertNotNull(testEnrollment.getCourse());
+      Assertions.assertEquals(request.getCourseId(), testEnrollment.getCourse().getId());
     }
   }
 

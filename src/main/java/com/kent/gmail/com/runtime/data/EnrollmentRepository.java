@@ -1,5 +1,7 @@
 package com.kent.gmail.com.runtime.data;
 
+import com.kent.gmail.com.runtime.model.Course;
+import com.kent.gmail.com.runtime.model.Course_;
 import com.kent.gmail.com.runtime.model.Enrollment;
 import com.kent.gmail.com.runtime.model.Enrollment_;
 import com.kent.gmail.com.runtime.model.Student;
@@ -73,6 +75,15 @@ public class EnrollmentRepository {
               .collect(Collectors.toSet());
       Join<T, Student> join = r.join(Enrollment_.student);
       preds.add(join.get(Student_.id).in(ids));
+    }
+
+    if (enrollmentFilter.getCourses() != null && !enrollmentFilter.getCourses().isEmpty()) {
+      Set<String> ids =
+          enrollmentFilter.getCourses().parallelStream()
+              .map(f -> f.getId())
+              .collect(Collectors.toSet());
+      Join<T, Course> join = r.join(Enrollment_.course);
+      preds.add(join.get(Course_.id).in(ids));
     }
   }
 
